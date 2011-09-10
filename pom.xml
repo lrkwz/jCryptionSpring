@@ -2,11 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.lrkwz</groupId>
+	<groupId>org.gitorious.jcryptionspring</groupId>
 	<artifactId>jcryption-spring</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1.0.BUILD-SNAPSHOT</version>
 	<name>JCryption Spring integration</name>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 	<developers>
 		<developer>
 			<email>luca.orlandi@gmail.com</email>
@@ -79,15 +84,15 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- <dependency> -->
-		<!-- <groupId>log4j</groupId> -->
-		<!-- <artifactId>log4j</artifactId> -->
-		<!-- <version>1.2.16</version> -->
-		<!-- </dependency> -->
+			<!-- <groupId>log4j</groupId> -->
+			<!-- <artifactId>log4j</artifactId> -->
+			<!-- <version>1.2.16</version> -->
+			<!-- </dependency> -->
 		<!-- <dependency> -->
-		<!-- <groupId>org.slf4j</groupId> -->
-		<!-- <artifactId>slf4j-api</artifactId> -->
-		<!-- <version>${slf4j.version}</version> -->
-		<!-- </dependency> -->
+			<!-- <groupId>org.slf4j</groupId> -->
+			<!-- <artifactId>slf4j-api</artifactId> -->
+			<!-- <version>${slf4j.version}</version> -->
+			<!-- </dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
@@ -143,15 +148,15 @@
 			</exclusions>
 		</dependency>
 		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-context</artifactId> -->
-		<!-- <version>${spring.version}</version> -->
-		<!-- </dependency> -->
+			<!-- <groupId>org.springframework</groupId> -->
+			<!-- <artifactId>spring-context</artifactId> -->
+			<!-- <version>${spring.version}</version> -->
+			<!-- </dependency> -->
 		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-aop</artifactId> -->
-		<!-- <version>${spring.version}</version> -->
-		<!-- </dependency> -->
+			<!-- <groupId>org.springframework</groupId> -->
+			<!-- <artifactId>spring-aop</artifactId> -->
+			<!-- <version>${spring.version}</version> -->
+			<!-- </dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
@@ -330,6 +335,59 @@
 					</webAppConfig>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.1</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

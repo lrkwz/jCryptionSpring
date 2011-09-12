@@ -4,7 +4,7 @@
 	<groupId>org.gitorious.jcryptionspring</groupId>
 	<artifactId>jcryption-spring</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.0.BUILD-SNAPSHOT</version>
+	<version>0.1.0.BUILD</version>
 	<name>JCryption Spring integration</name>
 	<licenses>
 		<license>

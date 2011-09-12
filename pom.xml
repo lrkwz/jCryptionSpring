@@ -4,7 +4,7 @@
 	<groupId>org.gitorious.jcryptionspring</groupId>
 	<artifactId>jcryption-spring</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.0.BUILD</version>
+	<version>0.1.0.BUILD-SNAPSHOT</version>
 	<name>JCryption Spring integration</name>
 	<licenses>
 		<license>
@@ -26,7 +26,7 @@
 	</developers>
 	<scm>
 		<connection>scm:git:git://gitorious.org/jcryptingspring/jcryptionspring.git</connection>
-		<developerConnection>scm:git:https://git.gitorious.org/jcryptingspring/jcryptionspring.git</developerConnection>
+		<developerConnection>scm:git:git@gitorious.org:jcryptingspring/jcryptionspring.git</developerConnection>
 		<tag>HEAD</tag>
 		<url>https://gitorious.org/jcryptingspring/jcryptionspring/trees/master</url>
 	</scm>

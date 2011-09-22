@@ -39,7 +39,7 @@ quit
 
 lo script precedente aggiunge al pom.xml la dipendenza dal mio modulo di integrazione
 
-```
+```XML
 <dependency>
             <groupId>org.gitorious.jcryptionspring</groupId>
             <artifactId>jcryption-spring</artifactId>
@@ -52,7 +52,7 @@ a questo punto è necessario aggiungere le librerie javascript che possono esser
 
 Modifica il file src/main/webapp/WEB-INF/layoutsdefault.jspx in modo che le librerie js vengano incluse in ogni pagina
 
-```
+```XML
 <spring:url var="home" value="/" />
         
 <script src="${home }js/jquery-1.4.2.min.js" type="text/javascript"><!--  --></script>  
@@ -63,7 +63,7 @@ Modifica il file src/main/webapp/WEB-INF/layoutsdefault.jspx in modo che le libr
 
 A questo punto bisogna agganciare la funziona di crypting alla post di ciascuna form (p.e. src/main/webapp/WEB-INF/views/userprofiles/create.jspx e src/main/webapp/WEB-INF/views/userprofiles/update.jspx) inserendo :
 
-```
+```javascript
 <spring:url value="/EncryptionServlet?generateKeypair=true"  var="getKeysURL"/>
 <script>  
 /*<![CDATA[ */  
@@ -79,7 +79,7 @@ $("#userProfile").jCryption({getKeysURL:"${getKeysURL}"});
 
 per fare in modo che la chiamata  /EncryptionServlet abbi luogo puoi aggiungere alla configurazione mvc src/main/webapp/WEB-INF/spring/webmvc-config.xml:
 
-```
+```XML
 <context:component-scan base-package="org.gitorious.jcryptionspring">
 </context:component-scan>
 ```
@@ -87,7 +87,7 @@ per fare in modo che la chiamata  /EncryptionServlet abbi luogo puoi aggiungere 
 
 infine è necessario configurare il filtro di decripting nel src/main/webapp/WEB-INF/web.xml inserendo
 
-```
+```XML
 <filter>
     <filter-name>DecryptParameters</filter-name>  
     <filter-class>org.gitorious.jcryptionspring.ParameterDecryptingFilter</filter-class>  

@@ -11,12 +11,12 @@ The objectievs for this springframework integration module are:
 
 The framework implements the following process:
 
-    il client al momento della POST chiama un controller che rende la chiave pubblica di codifica
-    la libreria javascript crypta tutti i campi della form in una unica stringa di testo che viene POSTata al controller
-    un filtro intercetta le chiamate che contengono nel payload la variabile cryptata la decripta  e wrappa la richiesta http in modo da servire le medesime variabili della POST originale
-    a questo punto la catena dei filtri prosegue come al solito
+1. il client al momento della POST chiama un controller che rende la chiave pubblica di codifica
+2. la libreria javascript crypta tutti i campi della form in una unica stringa di testo che viene POSTata al controller
+3. un filtro intercetta le chiamate che contengono nel payload la variabile cryptata la decripta  e wrappa la richiesta http in modo da servire le medesime variabili della POST originale
+4. a questo punto la catena dei filtri prosegue come al solito
 
- In questo modo è per esempio possibile realizzare una applicazione standard inserendo in pochi punti quanto serve la il crypting; proviamo a farlo passo passo con l'ausilio di roo:
+In questo modo è per esempio possibile realizzare una applicazione standard inserendo in pochi punti quanto serve la il crypting; proviamo a farlo passo passo con l'ausilio di roo:
 
 esegui i seguenti comandi nella shell di roo ini modo da inizializzare una web application che consenta di creare e modificare un oggetto di tipo UserProfile con alcune proprietà
 

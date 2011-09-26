@@ -46,15 +46,13 @@ public class ParameterDecryptingFilter extends OncePerRequestFilter {
 
 	class DecryptedParameterRequest extends HttpServletRequestWrapper {
 
-		KeyPair keys;
-		// Map<String, String> decryptedParameters;
 		private Map<String, String[]> parameters = new LinkedHashMap<String, String[]>(
 				16);
 
 		public DecryptedParameterRequest(HttpServletRequest request,
 				KeyPair keys) {
 			super(request);
-			this.keys = keys;
+			Assert.notNull(keys, "Keys must not be null");
 
 			String decrypted = JCryptionUtil.decrypt(
 					request.getParameter(J_CRYPTION), keys);
@@ -85,7 +83,6 @@ public class ParameterDecryptingFilter extends OncePerRequestFilter {
 		}
 
 		@Override
-		// TODO Still don't knwo how to size retVal
 		public String[] getParameterValues(String name) {
 			Assert.notNull(name, "Parameter name must not be null");
 			return this.parameters.get(name);

@@ -19,6 +19,7 @@ import java.util.Map;
 import javax.crypto.Cipher;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.springframework.util.Assert;
 
 /**
  * @author Ashwin Kumar
@@ -67,6 +68,8 @@ public class JCryptionUtil {
 	 *             failed
 	 */
 	public static String decrypt(String encrypted, KeyPair keys) {
+		Assert.notNull(encrypted, "Encrypted string must not be null");
+		Assert.notNull(keys, "Keys must not be null");
 		Cipher dec;
 		try {
 			dec = Cipher.getInstance("RSA/NONE/NoPadding");

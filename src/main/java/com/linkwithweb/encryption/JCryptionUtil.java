@@ -3,7 +3,6 @@
  */
 package com.linkwithweb.encryption;
 
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.GeneralSecurityException;
@@ -11,7 +10,10 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.crypto.Cipher;
@@ -45,28 +47,6 @@ public class JCryptionUtil {
 			KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
 			kpg.initialize(keyLength);
 			KeyPair keyPair = kpg.generateKeyPair();
-			/*
-			 * KeyFactory keyFac = KeyFactory.getInstance("RSA");
-			 * try {
-			 * RSAPrivateCrtKeySpec pkSpec = (RSAPrivateCrtKeySpec) keyFac
-			 * .getKeySpec(keyPair.getPrivate(),
-			 * RSAPrivateCrtKeySpec.class);
-			 * 
-			 * System.out.println("Prime exponent p : "
-			 * + byteArrayToHexString(pkSpec.getPrimeExponentP().toByteArray()));
-			 * System.out.println("Prime exponent q : "
-			 * + byteArrayToHexString(pkSpec.getPrimeExponentQ().toByteArray()));
-			 * System.out.println("Modulus : " + byteArrayToHexString(pkSpec.getModulus().toByteArray()));
-			 * System.out.println("Private exponent : "
-			 * + byteArrayToHexString(pkSpec.getPrivateExponent().toByteArray()));
-			 * System.out.println("Public exponent : "
-			 * + byteArrayToHexString(pkSpec.getPublicExponent().toByteArray()));
-			 * 
-			 * } catch (InvalidKeySpecException e) {
-			 * // TODO Auto-generated catch block
-			 * e.printStackTrace();
-			 * }
-			 */
 
 			return keyPair;
 		} catch (NoSuchAlgorithmException e) {
@@ -83,7 +63,8 @@ public class JCryptionUtil {
 	 *            RSA keys
 	 * @return decrypted text
 	 * @throws RuntimeException
-	 *             if the RSA algorithm not supported or decrypt operation failed
+	 *             if the RSA algorithm not supported or decrypt operation
+	 *             failed
 	 */
 	public static String decrypt(String encrypted, KeyPair keys) {
 		Cipher dec;
@@ -105,7 +86,8 @@ public class JCryptionUtil {
 			throw new RuntimeException("Decrypt error", e);
 		}
 		/**
-		 * Some code is getting added in first 2 digits with Jcryption need to investigate
+		 * Some code is getting added in first 2 digits with Jcryption need to
+		 * investigate
 		 */
 		return result.reverse().toString().substring(2);
 	}
@@ -119,16 +101,25 @@ public class JCryptionUtil {
 	 *            encoding value
 	 * @return Map with param name, value pairs
 	 */
-	public static Map<String, String> parse(String url, String encoding) {
+	public static Map<String, String[]> parse(String url, String encoding) {
 		try {
 			String urlToParse = URLDecoder.decode(url, encoding);
 			String[] params = urlToParse.split("&");
-			Map<String, String> parsed = new HashMap<String, String>();
+			Map<String, String[]> parsed = new HashMap<String, String[]>();
 			for (int i = 0; i < params.length; i++) {
 				String[] p = params[i].split("=");
-				String name = p[0];
+				String key = p[0];
 				String value = (p.length == 2) ? p[1] : null;
-				parsed.put(name, value);
+				if (parsed.containsKey(key)) {
+					String[] values = parsed.get(key);
+					List<String> list = new LinkedList<String>(
+							Arrays.asList(values));
+					list.add(value);
+					parsed.put(key, list.toArray(new String[list.size()]));
+				} else {
+					String[] values = {value};
+					parsed.put(key, values);
+				}
 			}
 			return parsed;
 		} catch (UnsupportedEncodingException e) {

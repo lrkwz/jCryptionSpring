@@ -67,7 +67,7 @@ This library requires the use of jCryption (http://www.jcryption.org) a JavaScri
 
 <p>execute this commands in roo shell in order to quicky startup a web app to create/show/modify a simple UserProfile object</p>
 
-<script type="syntaxhighlighter" class="brush: plain"><![CDATA[
+<pre class="brush: plain">
 project --topLevelPackage org.gitorious.jcryptionspring.sample
 persistence setup --database HYPERSONIC_IN_MEMORY --provider HIBERNATE 
 entity --class ~domain.UserProfile
@@ -81,7 +81,7 @@ controller scaffold --class ~.web.UserProfileController
 security setup
 dependency add --artifactId jcryption-spring --groupId org.gitorious.jcryptionspring --version 0.1.2 
 quit
-]]></script>
+</pre>
 
 <p>this script also appends in pom.xml the dependency from the integration module</p>
 

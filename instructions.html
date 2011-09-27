@@ -67,7 +67,7 @@ This library requires the use of jCryption (http://www.jcryption.org) a JavaScri
 
 <p>execute this commands in roo shell in order to quicky startup a web app to create/show/modify a simple UserProfile object</p>
 
-<pre class="brush: plain">
+<script type="syntaxhighlighter" class="brush: plain"><![CDATA[
 project --topLevelPackage org.gitorious.jcryptionspring.sample
 persistence setup --database HYPERSONIC_IN_MEMORY --provider HIBERNATE 
 entity --class ~domain.UserProfile
@@ -81,7 +81,7 @@ controller scaffold --class ~.web.UserProfileController
 security setup
 dependency add --artifactId jcryption-spring --groupId org.gitorious.jcryptionspring --version 0.1.2 
 quit
-</pre>
+]]></script>
 
 <p>this script also appends in pom.xml the dependency from the integration module</p>
 
@@ -107,7 +107,7 @@ quit
 
 Then hook the cryptong function to each form you want to alter (e.g. src/main/webapp/WEB-INF/views/userprofiles/create.jspx and/or src/main/webapp/WEB-INF/views/userprofiles/update.jspx) adding (alter it to accommodate the correct form id):
 
-<script type="syntaxhighlighter" class="brush: JScript"><![CDATA[
+<script type="syntaxhighlighter" class="brush: js"><![CDATA[
 <spring:url value="/EncryptionServlet?generateKeypair=true"  var="getKeysURL"/>
 <script>  
 /*<![CDATA[ */  
@@ -160,5 +160,9 @@ $("#userProfile").jCryption({getKeysURL:"${getKeysURL}"});
 			 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 			 })();
 		</script>
+		<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+		<script type="text/javascript">
+			     SyntaxHighlighter.all()
+			 </script>
 	</body>
 </html>
